@@ -50,13 +50,11 @@ export class UserService {
      await this.userRepository.update({userId:patient_code} , {Status : status} );
     var check=this.userRepository.findOne({ 'userId': patient_code } );
     var temp_time=0;
+    var num=patient_code.toString();
+    var url='http://140.113.170.152:5555/ECG/ECG_3lead/';
+    url=url.concat(num);
     while((await check).Status==1) {
       var data:any=[];
-      var upload_tag=false;
-      var num=patient_code.toString();
-      var url='http://192.168.25.194/hisapi/ECG/ECG_3lead/';
-      url=url.concat(num);
-      //console.log(url);
       fetch(url, {})
       .then((response) => {
       return response.json(); 
@@ -68,7 +66,6 @@ export class UserService {
       jsonData.Diff_2.shift();
       jsonData.Diff_3.shift();
       if (t!=temp_time) {
-      upload_tag=true;
       temp_time=t;
       data={
         Data_Point_Amount: jsonData.Data_Point_Amount,
@@ -91,7 +88,7 @@ export class UserService {
       }).catch((err) => {
       console.log('錯誤:', err);
       });
-    await sleep(1000);
+    await sleep(500);
     check=this.userRepository.findOne({ 'userId': patient_code } );
     }
   }
