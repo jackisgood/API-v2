@@ -29,9 +29,11 @@ export class UserController {
         return this.userService.createOne(params);
     }
 
-    @Put('users')
-    userUpdateStatus(@Body() params: UserParams)  {
-        this.userService.updateStatus(params);
+    @Put('users/:patient_code/:status')
+    userUpdateStatus(@Param('patient_code') patient_code:string,
+                    @Param('status') status:string,
+    )  {
+        this.userService.updateStatus(patient_code, status);
     }
 	
 	

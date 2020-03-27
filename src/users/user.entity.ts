@@ -11,8 +11,17 @@ export class User {
     userId: number;
 
     @Column({ type: 'int' })
-  Status: number;
+    Status: number;
 
     @Column({ type: 'double' })
-  Status_time: number;
+    Status_time: number;
+
+    @Column({ type:'double' })
+    lasttime_3lead:number;
+
+    @Column({ type:'double' })
+    lasttime_12lead:number;
+
+    @Column({ type:'double' })
+    lasttime_Ts:number;
 }
